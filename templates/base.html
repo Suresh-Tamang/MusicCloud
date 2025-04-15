@@ -1,49 +1,20 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: black;
-        }
-    </style>
-</head>
-
-<body>
-    <header>
-        <div class="logo">
-            <img src="" alt="">
-        </div>
-        <nav>
-            <a href="#">Now Playing</a>
-            <a href="#">Explore Songs</a>
-            <a href="">My Favourite</a>
-        </nav>
-        <div class="search">
-            <form action="">
-                <input type="search" name="searchsong" id="searchsong">
-            </form>
-        </div>
-    </header>
-    {% block content %}
-    {%endblock%}
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <style></style>
+  </head>
+  <body>
+    {%include 'partials/_header.html' %} {% block content %} {%endblock%}
     <footer></footer>
-</body>
-
+  </body>
 </html>

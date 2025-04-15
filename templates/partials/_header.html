@@ -1,0 +1,52 @@
+{% load static %}
+<nav class="nav-bar">
+    <div class="header-container fixed-width">
+        <div class="logo">MUSICLOUD</div>
+        <div class="header-menu" id="headerMenu">
+            <a href="#" class="menu-link active">Now Playing</a>
+            <a href="#" class="menu-link">Explore Stations</a>
+            <a href="#" class="menu-link">My Stations</a>
+        </div>
+
+        <div class="right-menu">
+            <div class="relative">
+                <input type="search" placeholder="Artist or Genre" class="search" />
+            </div>
+            <!--  <i class="fas fa-bars text-white text-2xl" id="menuToggle"></i> -->
+        </div>
+    </div>
+</nav>
+<div class="nav-below">
+    <div class="extra-menus fixed-width">
+        <button>
+            &lt</button>
+        <a href="">Recommended</a>
+        <a href="">Top Artist</a>
+        <a href="">Top Station</a>
+        <a href="">Trending</a>
+        <a href="">New</a>
+        <a href="">Folk Songs</a>
+        <a href="">Traditional</a>
+        <a href="">HipHop</a>
+        <button>&gt</button>
+    </div>
+</div>
+
+<script>
+    // Toggle mobile menu
+    const menuToggle = document.getElementById("menuToggle");
+    const headerMenu = document.getElementById("headerMenu");
+
+    menuToggle.addEventListener("click", () => {
+        headerMenu.classList.toggle("show");
+    });
+
+    // Set active link
+    const menuLinks = document.querySelectorAll(".menu-link");
+    menuLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+            menuLinks.forEach((l) => l.classList.remove("active"));
+            link.classList.add("active");
+        });
+    });
+</script>

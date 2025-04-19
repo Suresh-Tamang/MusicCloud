@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% block content %}
+<style>
+  .dashboard-container {
+    max-width: 600px;
+    margin: 80px auto;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    font-family: "Segoe UI", sans-serif;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .info-box {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: white;
+    border-left: 5px solid #4a90e2;
+    border-radius: 8px;
+  }
+
+  .info-box p {
+    margin: 8px 0;
+    font-size: 16px;
+  }
+</style>
+
+<div class="dashboard-container">
+  <h2>Welcome, {{ username }}!</h2>
+
+  <div class="info-box">
+    <p><strong>Username:</strong> {{ username }}</p>
+    <p><strong>Email:</strong> {{ email }}</p>
+  </div>
+
+  <a href="{% url 'logout' %}" class="btn">Logout</a>
+</div>
+{% endblock %}

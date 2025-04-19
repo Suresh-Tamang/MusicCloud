@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 :root {
-  --primary-color: #143be9;
+  --primary-color: #6278f1;
   --secondary-color: #a2f75e;
   --primary-text-color: #ffffff;
   --secondary-text-clolor: rgb(0, 0, 0);
@@ -85,6 +85,44 @@ body {
   display: none;
   cursor: pointer;
 }
+
+/* Show hamburger icon on smaller screens */
+@media (max-width: 768px) {
+  .fa-bars {
+    display: block;
+  }
+}
+
+/* Hamburger Menu Container */
+.hamburger {
+  position: absolute;
+  top: 50px; /* Adjust this based on your header height */
+  right: 20px;
+  width: 200px;
+  background-color: #333;
+  border-radius: 8px;
+  padding: 10px 0;
+  display: none; /* Hidden by default */
+  flex-direction: column;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.hamburger.active {
+  display: flex; /* Show menu when active */
+}
+
+.hamburger a {
+  text-decoration: none;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.hamburger a:hover {
+  background-color: #444;
+}
+
 .nav-below {
   z-index: 100;
   box-shadow: 5px 5px 100px 200px rgba(197, 196, 196, 0.5);
@@ -96,7 +134,7 @@ body {
   margin: 0 auto;
   display: flex;
 }
-
 /* Responsive Design */
+
 @media (max-width: 768px) {
 }

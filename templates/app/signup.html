@@ -1,0 +1,74 @@
+{% extends "base.html" %} {% block content %}
+<style>
+  .signup-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 80px auto;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .signup-container h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #333;
+  }
+
+  .message {
+    background-color: #e0ffe0;
+    padding: 10px;
+    border-left: 5px solid #4caf50;
+    margin-bottom: 20px;
+    color: #2d662d;
+    font-weight: bold;
+  }
+
+  form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: 0.3s;
+  }
+
+  form input:focus {
+    border-color: #4a90e2;
+    outline: none;
+    box-shadow: 0 0 4px rgba(74, 144, 226, 0.3);
+  }
+
+  .btn {
+    width: 100%;
+    background-color: #4a90e2;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn:hover {
+    background-color: #357abd;
+  }
+</style>
+
+<div class="signup-container">
+  <h2>Sign Up</h2>
+
+  {% if messages %} {% for message in messages %}
+  <div class="message">{{ message }}</div>
+  {% endfor %} {% endif %}
+
+  <form method="post">
+    {% csrf_token %} {{ form.as_p }}
+    <button type="submit" class="btn">Create Account</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0;
+        background: transparent;
+      }
+      #global-audio {
+        width: 100%;
+        height: 80px;
+      }
+    </style>
+  </head>
+  <body>
+    <audio id="global-audio" controls></audio>
+
+    <script>
+      // Listen for play commands from parent
+      window.addEventListener("message", (event) => {
+        if (event.data.action === "play") {
+          const audio = document.getElementById("global-audio");
+          audio.src = event.data.url;
+          audio.currentTime = event.data.currentTime || 0;
+          audio.play().catch((e) => console.log("Playback failed:", e));
+        }
+
+        if (event.data.action === "pause") {
+          document.getElementById("global-audio").pause();
+        }
+      });
+      // Inside iframe
+      const audio = document.getElementById("global-audio");
+      audio.addEventListener("play", () => {
+        parent.postMessage({ action: "state", playing: true }, "*");
+      });
+      audio.addEventListener("pause", () => {
+        parent.postMessage({ action: "state", playing: false }, "*");
+      });
+    </script>
+  </body>
+</html>

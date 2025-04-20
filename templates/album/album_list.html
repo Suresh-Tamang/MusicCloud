@@ -1,0 +1,16 @@
+{% extends "base.html" %} {% block content %}
+<h2>Your Albums</h2>
+<a href="{% url 'album_create' %}">Create New Album</a>
+<ul>
+  {% for album in albums %}
+  <li>
+    <strong>{{ album.title }}</strong> ({{ album.release_date }})
+    <img src="{{ album.cover_art.url }}" width="80" />
+    <a href="{% url 'album_update' album.id %}">Edit</a>
+    <a href="{% url 'album_delete' album.id %}">Delete</a>
+  </li>
+  {% empty %}
+  <li>No albums found.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

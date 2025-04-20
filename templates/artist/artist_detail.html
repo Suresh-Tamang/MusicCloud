@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block content %}
+<h2>Your Artist Profile</h2>
+{% if object %}
+<p><strong>Username:</strong> {{ object.user.username }}</p>
+<p><strong>Bio:</strong> {{ object.bio }}</p>
+<img src="{{ object.profile_picture.url }}" width="100" />
+<a href="{% url 'artist_update' object.id %}">Edit</a>
+<a href="{% url 'artist_delete' object.id %}">Delete</a>
+{% else %}
+<p>No artist profile found. <a href="{% url 'signup' %}">Create one</a></p>
+{% endif %} {% endblock %}

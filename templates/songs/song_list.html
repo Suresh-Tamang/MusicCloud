@@ -1,0 +1,16 @@
+{% extends "base.html" %} {% block content %}
+<h2>Your Songs</h2>
+<a href="{% url 'song_create' %}">Upload New Song</a>
+<ul>
+  {% for song in songs %}
+  <li>
+    <strong>{{ song.title }}</strong> - {{ song.genre }} - {{ song.duration }}
+    <audio controls src="{{ song.audio_file.url }}"></audio>
+    <a href="{% url 'song_edit' song.id %}">Edit</a>
+    <a href="{% url 'song_delete' song.id %}">Delete</a>
+  </li>
+  {% empty %}
+  <li>No songs uploaded yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

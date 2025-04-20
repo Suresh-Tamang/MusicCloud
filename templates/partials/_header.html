@@ -16,25 +16,46 @@
       </div>
       <i class="fas fa-bars text-white text-2xl" id="menuToggle"></i>
     </div>
+    <!-- Hamburger Menu (Hidden by Default) -->
+    <div class="hamburger" id="hamburgerMenu">
+      {% if user.is_authenticated %}
+      <a href="{% url 'dashboard' %}">Profile</a>
+      <a href="{% url 'logout' %}">Logout</a>
+      {% else %}
+      <a href="{% url 'signup' %}">Sign Up</a>
+      <a href="{% url 'login' %}">Login</a>
+      {% endif %}
+    </div>
   </div>
 </nav>
-<div class="hamburger" id="hamburgerMenu">
-  {% if user.is_authenticated %}
-  <!-- Show Profile and Logout if the user is logged in -->
-  <a href="{% url 'dashboard' %}">Profile</a>
-  <a href="{% url 'logout' %}">Logout</a>
-  {% else %}
-  <!-- Show SignUp and Login if the user is not logged in -->
-  <a href="{% url 'signup' %}">Sign Up</a>
-  <a href="{% url 'login' %}">Login</a>
-  {% endif %}
-</div>
 
 <script>
-  const toggle = document.getElementById("menuToggle");
-  const menu = document.getElementById("hamburgerMenu");
+  document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.getElementById("menuToggle");
+    const hamburgerMenu = document.getElementById("hamburgerMenu");
+    const menuLinks = document.querySelectorAll(".header-menu .menu-link");
 
-  toggle.addEventListener("click", () => {
-    menu.classList.toggle("active");
+    // Toggle menu on icon click
+    menuToggle.addEventListener("click", function (e) {
+      e.stopPropagation();
+      hamburgerMenu.classList.toggle("active");
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener("click", function (e) {
+      if (!hamburgerMenu.contains(e.target) && e.target !== menuToggle) {
+        hamburgerMenu.classList.remove("active");
+      }
+    });
+
+    // Add active border to clicked menu link
+    menuLinks.forEach((link) => {
+      link.addEventListener("click", function () {
+        // Remove active class from all links
+        menuLinks.forEach((l) => l.classList.remove("active"));
+        // Add active class to clicked link
+        this.classList.add("active");
+      });
+    });
   });
 </script>

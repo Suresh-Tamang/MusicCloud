@@ -7,14 +7,54 @@
     <title>Index</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
-    <style></style>
+    <style>
+      .audio-player-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #2c3e50;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        z-index: 1000;
+      }
+      .audio-player-container audio {
+        width: 80%;
+        margin-right: 20px;
+      }
+      .now-playing {
+        color: white;
+        display: flex;
+        flex-direction: column;
+      }
+      body {
+        padding-bottom: 80px;
+      }
+    </style>
   </head>
+
   <body>
-    {%include 'partials/_header.html' %} {% block content %} {%endblock%}
+    {%include 'partials/_header.html'%} {% block content %}{% endblock %}
+
+    <!-- Audio Player -->
+    <div class="audio-player-container">
+      <audio id="audio-player" controls>
+        Your browser does not support the audio element.
+      </audio>
+      <div class="now-playing" id="now-playing">
+        <span id="current-song-title"></span>
+        <span id="current-song-artist"></span>
+      </div>
+    </div>
+    <!-- Load this script in base.html -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="{% static 'js/persistent_audio.js' %}"></script>
     <footer></footer>
   </body>
 </html>

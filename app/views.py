@@ -144,12 +144,12 @@ def song_create(request):
         return redirect('song_list')
     return render(request,'songs/song_form.html',{'form':form})
 
-@login_required
+@login_required(login_url='login')
 def song_list(request):
     songs = Song.objects.filter(artist__user=request.user)
     return render(request,'songs/song_list.html',{'songs':songs})
 
-@login_required
+@login_required(login_url='login')
 def song_edit(request,pk):
     song = get_object_or_404(Song,pk=pk, artist__user = request.user)
     form = SongForm(request.POST or None, request.FILES or None, instance=song)
@@ -159,7 +159,7 @@ def song_edit(request,pk):
         return redirect('song_list')
     return render(request,'songs/song_form.html',{'form':form})
 
-@login_required
+@login_required(login_url='login')
 def song_delete(request,pk):
     song = get_object_or_404(Song,pk=pk,artist__user = request.user)
     song.delete()
@@ -168,7 +168,7 @@ def song_delete(request,pk):
 
 
 # CRUD   FOR PLAYLISTS  
-@login_required
+@login_required(login_url='login')
 def playlist_create(request):
     form = PlaylistForm(request.POST or None)
     form.fields['songs'].query = Song.objects.filter()
@@ -179,14 +179,14 @@ def playlist_create(request):
         form.save_m2m()
         messages.success(request,"Playlist created.")
         return redirect('playlist_list')
-    return redirect(request,'playlist/playlist_form.html',{'form':form})
+    return render(request,'playlist/playlist_form.html',{'form':form})
 
-@login_required
+@login_required(login_url='login')
 def playlist_list(request):
     playlists=Playlist.objects.filter(user=request.user)
     return render(request,'playlist/playlist_list.html',{'playlists':playlists})
 
-@login_required
+@login_required(login_url='login')
 def playlist_edit(request,pk):
     playlist=get_object_or_404(Playlist, pk=pk, user=request.user)
     form = PlaylistForm(request.POST or None, instance=playlist)
@@ -197,7 +197,7 @@ def playlist_edit(request,pk):
         return redirect('playlist_list')
     return render(request,'playlist/playlist_form.html',{'form':form})
 
-@login_required
+@login_required(login_url='login')
 def playlist_delete(request,pk):
     playlist=get_object_or_404(Playlist, pk=pk,user=request.user)
     playlist.delete()

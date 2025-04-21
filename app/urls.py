@@ -28,6 +28,6 @@ urlpatterns = [
     
     path('playlists/',views.playlist_list,name='playlist_list'),
     path('playlists/create/',views.playlist_create, name='playlist_create'),
-    path('playlists/edit/<int:pk>/',views.playlist_edit, name='playlist_edit'),
+    path('playlists/edit/<int:pk>/',views.playlist_edit, name='playlist_update'),
     path('playlists/delete/<int:pk>/', views.playlist_delete, name='playlist_delete'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

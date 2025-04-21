@@ -1,16 +1,220 @@
-{% extends "base.html" %} {% block content %}
-<h2>Your Albums</h2>
-<a href="{% url 'album_create' %}">Create New Album</a>
-<ul>
-  {% for album in albums %}
-  <li>
-    <strong>{{ album.title }}</strong> ({{ album.release_date }})
-    <img src="{{ album.cover_art.url }}" width="80" />
-    <a href="{% url 'album_update' album.id %}">Edit</a>
-    <a href="{% url 'album_delete' album.id %}">Delete</a>
-  </li>
-  {% empty %}
-  <li>No albums found.</li>
-  {% endfor %}
-</ul>
+{% extends "base.html" %} {% load static %} {% block content %}
+<div class="albums-container">
+  <div class="albums-header">
+    <h2>Your Albums</h2>
+    <a href="{% url 'album_create' %}" class="create-btn">+ Create New Album</a>
+  </div>
+
+  <div class="albums-grid">
+    {% for album in albums %}
+    <div class="album-card">
+      <div class="album-cover">
+        <img src="{{ album.cover_art.url }}" alt="{{ album.title }} cover" />
+        <div class="album-overlay">
+          <a href="{% url 'album_update' album.id %}" class="action-btn edit"
+            >Edit</a
+          >
+          <a href="{% url 'album_delete' album.id %}" class="action-btn delete"
+            >Delete</a
+          >
+        </div>
+      </div>
+      <div class="album-info">
+        <h3>{{ album.title }}</h3>
+        <p>{{ album.release_date|date:"Y" }}</p>
+      </div>
+    </div>
+    {% empty %}
+    <div class="empty-state">
+      <img
+        src="{% static 'images/empty-albums.svg' %}"
+        alt="No albums"
+        width="150"
+      />
+      <p>No albums found.</p>
+      <a href="{% url 'album_create' %}" class="create-btn"
+        >Create your first album</a
+      >
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  /* Base Styles */
+  .albums-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  .albums-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .albums-header h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1f2937;
+  }
+
+  /* Button Styles */
+  .create-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.6rem 1.2rem;
+    background-color: #4f46e5;
+    color: white;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+
+  .create-btn:hover {
+    background-color: #4338ca;
+    transform: translateY(-1px);
+  }
+
+  /* Albums Grid */
+  .albums-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  /* Album Card */
+  .album-card {
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .album-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .album-cover {
+    position: relative;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+  }
+
+  .album-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .album-card:hover .album-cover img {
+    transform: scale(1.05);
+  }
+
+  .album-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .album-card:hover .album-overlay {
+    opacity: 1;
+  }
+
+  .action-btn {
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .action-btn.edit {
+    background-color: #3b82f6;
+    color: white;
+  }
+
+  .action-btn.edit:hover {
+    background-color: #2563eb;
+  }
+
+  .action-btn.delete {
+    background-color: #ef4444;
+    color: white;
+  }
+
+  .action-btn.delete:hover {
+    background-color: #dc2626;
+  }
+
+  /* Album Info */
+  .album-info {
+    padding: 1rem;
+  }
+
+  .album-info h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .album-info p {
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+
+  /* Empty State */
+  .empty-state {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 0;
+    text-align: center;
+  }
+
+  .empty-state img {
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+
+  .empty-state p {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .albums-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .albums-grid {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+  }
+</style>
 {% endblock %}

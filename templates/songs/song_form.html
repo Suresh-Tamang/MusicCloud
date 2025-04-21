@@ -1,7 +1,81 @@
 {% extends "base.html" %} {% block content %}
-<h2>{{ form.instance.pk|yesno:"Update,Upload" }} Song</h2>
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %} {{ form.as_p }}
-  <button type="submit">Save</button>
-</form>
+<style>
+  .form-container {
+    max-width: 1300px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+  .form-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #f0f0f0;
+  }
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+  }
+  .form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+  }
+  .form-control:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+  }
+  .btn-submit {
+    background: #6366f1;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .btn-submit:hover {
+    background: #4f46e5;
+  }
+  .errorlist {
+    color: #ef4444;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    list-style: none;
+    padding-left: 0;
+  }
+</style>
+
+<div class="form-container">
+  <h2 class="form-title">{{ form.instance.pk|yesno:"Update,Upload" }} Song</h2>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %} {% for field in form %}
+    <div class="form-group">
+      {{ field.label_tag }} {{ field }} {% if field.errors %} {{ field.errors }}
+      {% endif %} {% if field.help_text %}
+      <small style="color: #666; font-size: 0.875rem"
+        >{{ field.help_text }}</small
+      >
+      {% endif %}
+    </div>
+    {% endfor %}
+
+    <button type="submit" class="btn-submit">Save</button>
+  </form>
+</div>
 {% endblock %}

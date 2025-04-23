@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Station - Leona Lewis</title>
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --primary-dark: #5649c0;
+            --text: #2d3436;
+            --text-light: #636e72;
+            --bg: #f5f6fa;
+            --card-bg: #ffffff;
+            --progress: #00b894;
+            --divider: #dfe6e9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .artist-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .artist-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+            border-bottom: 2px solid var(--divider);
+            padding-bottom: 0.5rem;
+        }
+
+        .station-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .current-station {
+            border-left: 4px solid var(--primary);
+        }
+
+        .station-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background-color: var(--divider);
+            border-radius: 3px;
+            margin: 1rem 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 50%;
+            background-color: var(--progress);
+            border-radius: 3px;
+        }
+
+        .now-playing {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .now-playing-info {
+            margin-left: 1rem;
+        }
+
+        .song-title {
+            font-weight: 600;
+        }
+
+        .song-artist {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .station-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .stations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .station-tag {
+            background-color: var(--card-bg);
+            padding: 0.75rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .station-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background-color: var(--divider);
+            color: var(--text-light);
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="artist-header">
+            <h1 class="artist-name">LEONA LEWIS</h1>
+            <p>Explore Stations</p>
+        </div>
+
+        <h2 class="section-title">Our picks for you based on your listening:</h2>
+
+        <div class="station-card current-station">
+            <h3 class="station-title">Timeless Heartache</h3>
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="now-playing">
+                <div class="now-playing-info">
+                    <div class="song-title">Bleeding Love</div>
+                    <div class="song-artist">by Leona Lewis</div>
+                </div>
+            </div>
+            <div class="station-controls">
+                <button class="btn btn-outline">Shuffle Stations</button>
+                <span class="badge">Mellow 0/3 Hits</span>
+            </div>
+        </div>
+
+        <h2 class="section-title">New Playing</h2>
+
+        <div class="stations-grid">
+            <div class="station-tag">Easy Listening</div>
+            <div class="station-tag">Power Ballads</div>
+            <div class="station-tag">UK Pop</div>
+            <div class="station-tag">Soulful</div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -111,8 +111,8 @@ def album_create(request):
 # List Albums of logged-in user
 @login_required 
 def album_list(request):
-    albums = Album.objects.filter(artist__user=request.user)
-    return render(request, 'album/album_list.html',{'album':albums})
+    album = Album.objects.filter(artist__user=request.user)
+    return render(request, 'album/album_list.html',{'albums':album})
 
 @login_required
 def album_edit(request, pk):
@@ -129,7 +129,7 @@ def album_delete(request,pk):
     album=get_object_or_404(Album,pk=pk, artist__user=request.user)
     album.delete()
     messages.success(request,"Album deleted. ")
-    return redirect('album/album_list')
+    return redirect('album_list')
 
 # CRUD for songs
 def song_create(request):
@@ -203,3 +203,15 @@ def playlist_delete(request,pk):
     playlist.delete()
     messages.success(request,"Playlist deleted.")
     return redirect('playlist/playlist_list')
+
+
+def add_song(request):
+    if request.method == 'POST':
+        form = SongForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('song_list')  # Replace with your success URL
+    else:
+        form = SongForm()
+    
+    return render(request, 'songs/songs_add.html', {'form': form})

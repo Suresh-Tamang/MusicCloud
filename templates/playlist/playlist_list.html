@@ -1,16 +1,135 @@
 {% extends "base.html" %} {% block content %}
-<h2>Your Playlists</h2>
-<a href="{% url 'playlist_create' %}">Create Playlist</a>
-<ul>
-  {% for playlist in playlists %}
-  <li>
-    <strong>{{ playlist.title }}</strong>
-    <p>Songs: {{ playlist.songs.count }}</p>
-    <a href="{% url 'playlist_update' playlist.id %}">Edit</a>
-    <a href="{% url 'playlist_delete' playlist.id %}">Delete</a>
-  </li>
-  {% empty %}
-  <li>No playlists created yet.</li>
-  {% endfor %}
-</ul>
+<style>
+  .playlist-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  h2 {
+    font-size: 1.75rem;
+    color: #2d3748;
+    margin: 0;
+  }
+  .create-btn {
+    background: #4f46e5;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .create-btn:hover {
+    background: #4338ca;
+    transform: translateY(-1px);
+  }
+  .playlist-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem;
+  }
+  .playlist-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s;
+  }
+  .playlist-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: #cbd5e0;
+  }
+  .playlist-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin: 0 0 0.5rem 0;
+  }
+  .playlist-meta {
+    color: #4a5568;
+    margin: 0 0 1rem 0;
+    font-size: 0.9rem;
+  }
+  .action-links {
+    display: flex;
+    gap: 1rem;
+  }
+  .action-link {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .edit-link {
+    color: #2b6cb0;
+    border: 1px solid #bee3f8;
+    background: #ebf8ff;
+  }
+  .edit-link:hover {
+    background: #bee3f8;
+  }
+  .delete-link {
+    color: #c53030;
+    border: 1px solid #fed7d7;
+    background: #fff5f5;
+  }
+  .delete-link:hover {
+    background: #fed7d7;
+  }
+  .empty-state {
+    text-align: center;
+    color: #718096;
+    padding: 2rem;
+    background: #f8fafc;
+    border-radius: 8px;
+  }
+</style>
+
+<div class="playlist-container">
+  <div class="page-header">
+    <h2>Your Playlists</h2>
+    <a href="{% url 'playlist_create' %}" class="create-btn">
+      + Create Playlist
+    </a>
+  </div>
+
+  <ul class="playlist-list">
+    {% for playlist in playlists %}
+    <li class="playlist-card">
+      <h3 class="playlist-title">{{ playlist.title }}</h3>
+      <p class="playlist-meta">
+        {{ playlist.songs.count }} song{{ playlist.songs.count|pluralize }}
+      </p>
+      <div class="action-links">
+        <a
+          href="{% url 'playlist_update' playlist.id %}"
+          class="action-link edit-link"
+          >Edit</a
+        >
+        <a
+          href="{% url 'playlist_delete' playlist.id %}"
+          class="action-link delete-link"
+          >Delete</a
+        >
+      </div>
+    </li>
+    {% empty %}
+    <li class="empty-state">
+      No playlists created yet.
+      <a href="{% url 'playlist_create' %}" style="color: #4f46e5"
+        >Create your first playlist</a
+      >
+    </li>
+    {% endfor %}
+  </ul>
+</div>
 {% endblock %}

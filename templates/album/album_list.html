@@ -11,7 +11,7 @@
       <div class="album-cover">
         <img src="{{ album.cover_art.url }}" alt="{{ album.title }} cover" />
         <div class="album-overlay">
-          <a href="{% url 'album_update' album.id %}" class="action-btn edit"
+          <a href="{% url 'album_edit' album.id %}" class="action-btn edit"
             >Edit</a
           >
           <a href="{% url 'album_delete' album.id %}" class="action-btn delete"

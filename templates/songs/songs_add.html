@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+<!-- If you have a base template -->
+
+{% block content %}
+<h2>Add New Song</h2>
+<form method="post" enctype="multipart/form-data" class="song-form">
+  {% csrf_token %}
+
+  <div class="form-group">
+    <label for="{{ form.title.id_for_label }}">Title:</label>
+    {{ form.title }} {{ form.title.errors }}
+  </div>
+
+  <div class="form-group">
+    <label for="{{ form.artist.id_for_label }}">Artist:</label>
+    {{ form.artist }} {{ form.artist.errors }}
+  </div>
+
+  <div class="form-group">
+    <label for="{{ form.album.id_for_label }}">Album (optional):</label>
+    {{ form.album }} {{ form.album.errors }}
+  </div>
+
+  <div class="form-group">
+    <label for="{{ form.genre.id_for_label }}">Genre (optional):</label>
+    {{ form.genre }} {{ form.genre.errors }}
+  </div>
+
+  <div class="form-group">
+    <label for="{{ form.cover_art.id_for_label }}">Cover Art:</label>
+    {{ form.cover_art }} {{ form.cover_art.errors }}
+  </div>
+
+  <div class="form-group">
+    <label for="{{ form.audio_file.id_for_label }}">Audio File:</label>
+    {{ form.audio_file }} {{ form.audio_file.errors }}
+  </div>
+
+  <div class="form-group">
+    <label for="{{ form.duration.id_for_label }}"
+      >Duration (HH:MM:SS, optional):</label
+    >
+    {{ form.duration }} {{ form.duration.errors }}
+  </div>
+
+  <button type="submit" class="submit-button">Upload Song</button>
+</form>
+<style>
+  .song-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .submit-button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .submit-button:hover {
+    background-color: #45a049;
+  }
+</style>
+
+{% endblock %}

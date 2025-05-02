@@ -54,10 +54,11 @@ def login_view(request):
             messages.error(request, "No account found with this email.")
     return render(request,'app/login.html')
 
+@login_required(login_url='login')
 def logout_view(request):
+    print("Logging out user:", request.user)
     logout(request)
     return redirect('login')
-
 
 
 @login_required(login_url='login')

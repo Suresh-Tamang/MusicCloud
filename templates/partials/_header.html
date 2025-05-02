@@ -3,13 +3,10 @@
   <div class="header-container fixed-width">
     <div class="logo">MUSICLOUD</div>
     <div class="header-menu" id="headerMenu">
-      <a href="{% url 'home' %}" class="menu-link active">Now Playing</a>
-      <a href="{% url 'explore-stations' %}" class="menu-link"
-        >Explore Stations</a
-      >
-      <a href="{% url 'my-stations' %}" class="menu-link">My Stations</a>
+      <a href="{% url 'home' %}" class="menu-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Now Playing</a>
+      <a href="{% url 'explore-stations' %}" class="menu-link {% if request.resolver_match.url_name == 'explore-stations' %}active{% endif %}">Explore Stations</a>
+      <a href="{% url 'my-stations' %}" class="menu-link {% if request.resolver_match.url_name == 'my-stations' %}active{% endif %}">My Stations</a>
     </div>
-
     <div class="right-menu">
       <div class="relative">
         <input type="search" placeholder="Artist or Genre" class="search" />

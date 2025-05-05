@@ -203,9 +203,9 @@ def playlist_delete(request,pk):
     playlist=get_object_or_404(Playlist, pk=pk,user=request.user)
     playlist.delete()
     messages.success(request,"Playlist deleted.")
-    return redirect('playlist/playlist_list')
+    return redirect('playlists')
 
-
+@login_required(login_url='login')
 def add_song(request):
     if request.method == 'POST':
         form = SongForm(request.POST, request.FILES)
@@ -219,9 +219,18 @@ def add_song(request):
 
 
 
-def linear_search_by_title(songs,query):
+# def linear_search_by_title(songs,query):
+#     query = query.lower()
+#     return [song for song in songs if query in song.title.lower()]
+
+def linear_search_by_title(songs, query):
     query = query.lower()
-    return [song for song in songs if query in song.title.lower()]
+    results = []
+    for song in songs:
+        if query in song.title.lower():
+            results.append(song)
+    return results
+
 
 def search_results(request):
     query = request.GET.get('query','').strip()

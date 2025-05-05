@@ -1,56 +1,139 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% block content %}
 <style>
   .dashboard-container {
-    max-width: 1300px;
-    margin: 80px auto;
+    max-width: 1200px;
+    margin: 100px auto 40px;
     padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
-    font-family: "Segoe UI", sans-serif;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    background-color: #ffffff;
+    font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
   }
 
   h2 {
     text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+    margin-bottom: 30px;
+    color: #2c3e50;
+    font-size: 2.2rem;
+    font-weight: 600;
+  }
+
+  .welcome-message {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    margin-bottom: 40px;
   }
 
   .info-box {
-    margin-bottom: 20px;
-    padding: 20px;
+    margin-bottom: 30px;
+    padding: 25px 30px;
     background-color: white;
-    border-left: 5px solid #4a90e2;
-    border-radius: 8px;
+    border-left: 5px solid #3498db;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .info-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
   }
 
   .info-box p {
-    margin: 8px 0;
-    font-size: 16px;
+    margin: 12px 0;
+    font-size: 1rem;
+    color: #34495e;
+  }
+
+  .info-box strong {
+    color: #2c3e50;
+    font-weight: 600;
+    min-width: 100px;
+    display: inline-block;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #e74c3c;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 20px;
+  }
+  .btn-artist {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #e74c3c;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 20px;
+  }
+
+  .btn:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+  }
+
+
+
+  @media (max-width: 768px) {
+    .dashboard-container {
+      margin-top: 140px;
+      padding: 25px;
+    }
+    
+    .extra-menus {
+      padding: 10px 15px;
+      gap: 10px;
+    }
+    
+    .extra-menus a {
+      padding: 6px 12px;
+      font-size: 0.85rem;
+    }
   }
 </style>
+
 <div class="nav-below">
   <div class="extra-menus fixed-width">
-    <button>&lt</button>
-    <a href="">Recommended</a>
-    <a href="">Top Artist</a>
-    <a href="">Top Station</a>
-    <a href="">Trending</a>
-    <a href="">New</a>
-    <a href="">Folk Songs</a>
-    <a href="">Traditional</a>
-    <a href="">HipHop</a>
-    <button>&gt</button>
+    <button>&lt;</button>
+    <a href="{% url 'song_list' %}">My Songs</a>
+    <a href="{% url 'album_list'%}">My Albums</a>
+    <a href="{% url 'playlist_list' %}">My Playlist</a>
+    <a href="#">Trending</a>
+    <a href="#">New</a>
+    <a href="#">Folk Songs</a>
+    <a href="#">Traditional</a>
+    <a href="#">HipHop</a>
+    <button>&gt;</button>
   </div>
 </div>
 
 <div class="dashboard-container">
-  <h2>Welcome, {{ username }}!</h2>
+  <h2>Welcome back, {{ username }}!</h2>
+  <p class="welcome-message">Here's your personalized dashboard with all your account information</p>
+  
   <div class="info-box">
     <p><strong>Username:</strong> {{ username }}</p>
     <p><strong>Email:</strong> {{ email }}</p>
   </div>
 
-  <a href="{% url 'logout' %}" class="btn">Logout</a>
+  <a href="{% url 'logout' %}" class="btn">Logout</a><br>
+  <a href="{% url 'logout' %}" class="btn" style="background-color: green;">Become Artist</a>
 </div>
 {% endblock %}

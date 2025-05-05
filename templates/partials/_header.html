@@ -9,7 +9,12 @@
     </div>
     <div class="right-menu">
       <div class="relative">
-        <input type="search" placeholder="Artist or Genre" class="search" />
+        <form method="get" action="{% url 'search_results' %}">
+          <div class="relative">
+            <input type="search" name="query" placeholder="Search by song title" class="search border p-2 rounded" />
+            <button type="submit" class="bg-blue-500 text-white px-3 py-2 rounded ml-2">Search</button>
+          </div>
+        </form>
       </div>
       <i class="fas fa-bars text-white text-2xl" id="menuToggle"></i>
     </div>

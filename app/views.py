@@ -216,3 +216,17 @@ def add_song(request):
         form = SongForm()
     
     return render(request, 'songs/songs_add.html', {'form': form})
+
+
+
+def linear_search_by_title(songs,query):
+    query = query.lower()
+    return [song for song in songs if query in song.title.lower()]
+
+def search_results(request):
+    query = request.GET.get('query','').strip()
+    found_songs = []
+    if query:
+        all_songs = Song.objects.all() #load all songs into memory
+        found_songs = linear_search_by_title(all_songs, query)
+    return render(request, 'app/search_results.html',{'songs':found_songs,'query':query})

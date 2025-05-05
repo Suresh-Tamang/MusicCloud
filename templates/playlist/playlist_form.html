@@ -1,143 +1,76 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}
+{%load crispy_forms_tags%}
+{%load static%}
+{% block content %}
 <style>
   .form-container {
-    max-width: 600px;
+    max-width: 1300px;
     margin: 2rem auto;
     padding: 2rem;
     background: white;
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   }
-
   .form-title {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: #1a1a1a;
     margin-bottom: 1.5rem;
-    position: relative;
-    padding-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #f0f0f0;
   }
-
-  .form-title::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 50px;
-    height: 3px;
-    background: #4f46e5;
-    border-radius: 3px;
-  }
-
   .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
-
   .form-group label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
     color: #333;
-    font-size: 0.95rem;
   }
-
   .form-control {
     width: 100%;
-    padding: 0.85rem 1.25rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
+    padding: 0.75rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
     font-size: 1rem;
-    transition: all 0.3s ease;
-    background-color: #f8fafc;
+    transition: border-color 0.3s;
   }
-
   .form-control:focus {
     outline: none;
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
-    background-color: white;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
   }
-
   .btn-submit {
-    background: #4f46e5;
+    background: #6366f1;
     color: white;
     border: none;
-    padding: 0.85rem 2rem;
-    border-radius: 8px;
-    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 1rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+    transition: background 0.3s;
   }
-
   .btn-submit:hover {
-    background: #4338ca;
-    transform: translateY(-1px);
+    background: #4f46e5;
   }
-
-  .btn-submit:active {
-    transform: translateY(0);
-  }
-
-  /* Error styling */
   .errorlist {
-    color: #dc2626;
-    margin-top: 0.5rem;
-    font-size: 0.85rem;
+    color: #ef4444;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
     list-style: none;
     padding-left: 0;
-    background: rgba(220, 38, 38, 0.05);
-    padding: 0.5rem;
-    border-radius: 6px;
-    border-left: 3px solid #dc2626;
-  }
-
-  /* Help text styling */
-  .helptext {
-    display: block;
-    margin-top: 0.25rem;
-    font-size: 0.85rem;
-    color: #64748b;
-  }
-
-  /* For file inputs */
-  input[type="file"] {
-    padding: 0.5rem;
-    background: white;
   }
 </style>
 
 <div class="form-container">
-  <h2 class="form-title">
-    {{ form.instance.pk|yesno:"Update,Create" }} Playlist
-  </h2>
+  <h2 class="form-title">{{ form.instance.pk|yesno:"Update,Upload" }} Song</h2>
 
-  <form method="post">
-    {% csrf_token %} {% for field in form %}
-    <div class="form-group">
-      {{ field.label_tag }} {{ field }} {% if field.help_text %}
-      <span class="helptext">{{ field.help_text }}</span>
-      {% endif %} {% if field.errors %} {{ field.errors }} {% endif %}
-    </div>
-    {% endfor %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form|crispy}}
 
-    <button type="submit" class="btn-submit">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        viewBox="0 0 16 16"
-      >
-        <path
-          d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.5.5 0 0 1-.934.018L5.12 10.62l-4.898.696a.5.5 0 0 1-.538-.813L14.117.036a.5.5 0 0 1 .737.11z"
-        />
-      </svg>
-      Save Playlist
-    </button>
+    <button type="submit" class="btn-submit">Save</button>
   </form>
 </div>
 {% endblock %}

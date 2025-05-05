@@ -19,6 +19,9 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
+    <!-- Bootstrap 5 CSS (in base.html or your template) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
       .audio-player-container {
         position: fixed;
@@ -59,6 +62,6 @@
     <!-- Load this script in base.html -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{% static 'js/persistent_audio.js' %}"></script>
-    <footer></footer>
+    {%include 'partials/_footer.html' %}
   </body>
 </html>
